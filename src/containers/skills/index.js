@@ -6,9 +6,31 @@ import Skills_img from '../../assets/images/skills/skills-img.png';
 import Progressbar from './progressbar';
 import './skills.scss';
 import "../../assets/scss/variable.scss";
-
+import { useStaticQuery, graphql } from 'gatsby'
 
 function Skills() {
+
+    const data = useStaticQuery(graphql`
+        query {
+            allWordpressWpLandingpages{
+                edges{
+                    node{
+                        acf{
+                            skills_information_title
+                            skills_information_subtitle
+                            skills_information_description
+                            skills_information_image{
+                                source_url
+                            }
+                            skills_progressbar_title
+                            skills_progressbar_average
+                        }
+                    }   
+                }
+            }
+        }
+    `)
+
     return (
         <section className="skills-wrapper" id="skills">
             <Container>
@@ -22,17 +44,28 @@ function Skills() {
                         <div className="skills-content-block main-title-wrapper">
                             <Titlespan2
                                 Class="sitemain-subtitle"
-                                Name="We Lead From "
-                                Label="The Front"
+                                Name={data.allWordpressWpLandingpages.edges.map(edge => {
+                                    if (edge.node.acf.skills_information_title) {
+                                        return edge.node.acf.skills_information_title
+                                    }
+                                })}
                             />
                             <Subtitle
                                 Class="site-subtitle2"
-                                Name="What We Do"
+                                Name={data.allWordpressWpLandingpages.edges.map(edge => {
+                                    if (edge.node.acf.skills_information_subtitle) {
+                                        return edge.node.acf.skills_information_subtitle
+                                    }
+                                })}
                             />
 
                             <Description
                                 Class="skills-dec"
-                                Name="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown dummy text of the printing "
+                                Name={data.allWordpressWpLandingpages.edges.map(edge => {
+                                    if (edge.node.acf.skills_information_subtitle) {
+                                        return edge.node.acf.skills_information_description
+                                    }
+                                })}
                             />
                             <div className="progress-outer-block">
                                 <Title
@@ -41,30 +74,19 @@ function Skills() {
                                 />
                                 <div className="progressbar-wrapper-block">
                                     <div className="progressbar-block">
-                                        <Progressbar
-                                            Class="progressbar1"
-                                            Percenteg="96"
-                                            ProgressTitle="Strategies"
-                                            ProgressClass="progressbar-title"
-                                        />
-                                        <Progressbar
-                                            Class="progressbar2"
-                                            Percenteg="88"
-                                            ProgressTitle="Planning"
-                                            ProgressClass="progressbar-title"
-                                        />
-                                        <Progressbar
-                                            Class="progressbar3"
-                                            Percenteg="90"
-                                            ProgressTitle="Customer Support"
-                                            ProgressClass="progressbar-title"
-                                        />
-                                        <Progressbar
-                                            Class="progressbar4"
-                                            Percenteg="94"
-                                            ProgressTitle="Finance"
-                                            ProgressClass="progressbar-title"
-                                        />
+                                        {data.allWordpressWpLandingpages.edges.map((edge, index) => {
+                                            if (edge.node.acf.skills_progressbar_title) {
+                                                return (
+                                                    <Progressbar
+                                                        Class={`progressbar${index+1}`}
+                                                        Percenteg={edge.node.acf.skills_progressbar_average}
+                                                        ProgressTitle={edge.node.acf.skills_progressbar_title}
+                                                        ProgressClass="progressbar-title"
+                                                    />
+                                                )
+                                            }
+                                        })}
+                                        
                                     </div>
                                 </div>
                             </div>

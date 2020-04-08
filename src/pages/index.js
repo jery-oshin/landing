@@ -47,10 +47,10 @@ const IndexPage = () => {
                     <Testimonial />
                     <Contact />
                     <Brand />
-                    <Footer />
+                    {/*<Footer />*/}
                     <CopyRight />
-                    <ThemeColor />
-                    <ThemeOption />
+                    {/*<ThemeColor />*/}
+                    {/*<ThemeOption />*/}
                 </div>
             </div>
             :
