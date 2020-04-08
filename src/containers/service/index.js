@@ -38,19 +38,35 @@ function Service() {
                         <div className="service-content-1 main-title-wrapper">
                             <Titlespan2
                                 Class="sitemain-subtitle"
-                                Name={data.allWordpressWpLandingpages.edges[1].node.acf.business_solution_title}
+                                Name={data.allWordpressWpLandingpages.edges.map(edge => {
+                                    if (edge.node.acf.business_solution_title) {
+                                        return edge.node.acf.business_solution_title
+                                    }
+                                })}
                             />
                             <Subtitle
                                 Class="site-subtitle2"
-                                Name={data.allWordpressWpLandingpages.edges[1].node.acf.business_solution_subtitle}
+                                Name={data.allWordpressWpLandingpages.edges.map(edge => {
+                                    if (edge.node.acf.business_solution_subtitle) {
+                                        return edge.node.acf.business_solution_subtitle
+                                    }
+                                })}
                             />
                             <Title
                                 Class="service-title"
-                                Name={data.allWordpressWpLandingpages.edges[1].node.acf.business_solution_minititle}
+                                Name={data.allWordpressWpLandingpages.edges.map(edge => {
+                                    if (edge.node.acf.business_solution_minititle) {
+                                        return edge.node.acf.business_solution_minititle
+                                    }
+                                })}
                             />
                             <Description
                                 Class="service-dec"
-                                Name={data.allWordpressWpLandingpages.edges[1].node.acf.business_solution_description}
+                                Name={data.allWordpressWpLandingpages.edges.map(edge => {
+                                    if (edge.node.acf.business_solution_description) {
+                                        return edge.node.acf.business_solution_description
+                                    }
+                                })}
                             />
                             <Button
                                 Class="button1 btn button2 gradient-color"
@@ -74,15 +90,16 @@ function Service() {
                                     </div>
                                 ))}
                             </Col>
-                            <Col sm={6} className="service-block2">
+                            <Col sm={6} className="service-block1">
                                 {
                                     data.allWordpressWpLandingpages.edges.map((edge, index) => {
                                         if (edge.node.acf.features_title) {
                                             return (
-                                                <div className={`service-${index-2} service-content`} key={index}>
+                                                <div className={`service-${index} service-content`} key={index}>
                                                     <div className="service-content-dec">
                                                         <Title Class="service-title" Name={edge.node.acf.features_title} />
                                                         <Description Class="service-dec-content" Name={edge.node.acf.features_description} />
+                                                        
                                                     </div>
                                                 </div>
                                             )

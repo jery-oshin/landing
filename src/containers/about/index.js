@@ -5,8 +5,28 @@ import Button from '../../components/button';
 import Image from '../../components/image/index';
 import AboutImg from '../../assets/images/about/about-img.png';
 import './about.scss';
+import { useStaticQuery, graphql } from 'gatsby';
 
 function About() {
+
+    const data = useStaticQuery(graphql`
+        query {
+            
+            allWordpressWpLandingpages{
+                edges{
+                    node{
+                        acf{
+                            about_title
+                            about_subtitle
+                            about_description
+                        }
+                    
+                    }   
+                }
+            }
+        }
+    `)
+
     return (
         <section className="about-wrapper gradient-color" id="about">
             <Container>
@@ -15,25 +35,28 @@ function About() {
                         <div className="about-content-block main-title-wrapper">
                             <Subtitle
                                 Class="sitemain-subtitle"
-                                Name="Business solution"
+                                Name={data.allWordpressWpLandingpages.edges.map(edge => {
+                                        if (edge.node.acf.about_title) {
+                                            return edge.node.acf.about_title
+                                        }
+                                    })}
                             />
                             <Subtitle
                                 Class="site-subtitle2"
-                                Name="We gives you the best"
+                                Name={data.allWordpressWpLandingpages.edges.map(edge => {
+                                        if (edge.node.acf.about_subtitle) {
+                                            return edge.node.acf.about_subtitle
+                                        }
+                                    })}
                             />
 
                             <Description
                                 Class="about-dec about-dec-1"
-                                Name="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown dummy text of the printing"
-                            />
-                            <Titlespan2
-                                Class="about-twosub-title"
-                                Name="What we can help you"
-                                Label="Achive"
-                            />
-                            <Description
-                                Class="about-dec"
-                                Name="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an"
+                                Name={data.allWordpressWpLandingpages.edges.map(edge => {
+                                        if (edge.node.acf.about_description) {
+                                            return edge.node.acf.about_description
+                                        }
+                                    })}
                             />
                             <Button
                                 Class="button1 button4 btn"

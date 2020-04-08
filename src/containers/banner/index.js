@@ -12,18 +12,16 @@ import './banner.scss';
 function Banner(props) {
     const data = useStaticQuery(graphql`
         query {
-            
             allWordpressWpLandingpages{
                 edges{
                     node{
                         acf{
-                            Banner_Title
-                            Banner_description
-                            Banner_image{
+                            banner_title
+                            banner_description
+                            banner_image{
                                 source_url
                             }
                         }
-                    
                     }   
                 }
             }
@@ -44,11 +42,19 @@ function Banner(props) {
                             <div className="banner-content">
                                 <Titlespan
                                     Class="banner-main-title"
-                                    Name={data.allWordpressWpLandingpages.edges[0].node.acf.Banner_Title}
+                                    Name={data.allWordpressWpLandingpages.edges.map(edge => {
+                                        if (edge.node.acf.banner_title) {
+                                            return edge.node.acf.banner_title
+                                        }
+                                    })}
                                 />
                                 <Description
                                     Class="banner-dec"
-                                    Name={data.allWordpressWpLandingpages.edges[0].node.acf.Banner_description}
+                                    Name={data.allWordpressWpLandingpages.edges.map(edge => {
+                                        if (edge.node.acf.banner_description) {
+                                            return edge.node.acf.banner_description
+                                        }
+                                    })}
                                 />
                                 <div className="banner-btn-wrapper">
                                     <Button
@@ -66,10 +72,19 @@ function Banner(props) {
                         </Col>
                         <Col md={6}>
                             <div className="banner-image">
-                                <Image
-                                    Path={data.allWordpressWpLandingpages.edges[0].node.acf.Banner_image.source_url}
-                                    Class="banner-img rounded-circle"
-                                />
+                                {data.allWordpressWpLandingpages.edges.map(edge => {
+                                    if (edge.node.acf.banner_image != null) {
+                                        return (
+                                            <Image
+                                                Path={
+                                                    edge.node.acf.banner_image.source_url
+                                                }
+                                                Class="banner-img rounded-circle"
+                                            />
+                                        )
+                                    }
+                                })}
+                                
                             </div>
                         </Col>
                     </Row>
