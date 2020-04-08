@@ -19,6 +19,9 @@ function About() {
                             about_title
                             about_subtitle
                             about_description
+                            about_image {
+                                source_url
+                            }
                         }
                     
                     }   
@@ -68,7 +71,18 @@ function About() {
                     </Col>
                     <Col sm={6}>
                         <div className="about-image">
-                            <Image Path={AboutImg} Class="about-img" />
+                            {data.allWordpressWpLandingpages.edges.map(edge => {
+                                    if (edge.node.acf.about_image != null) {
+                                        return (
+                                            <Image
+                                                Path={
+                                                    edge.node.acf.about_image.source_url
+                                                }
+                                                Class="about-img rounded-circle"
+                                            />
+                                        )
+                                    }
+                                })}
                         </div>
                     </Col>
                 </Row>

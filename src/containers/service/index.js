@@ -22,6 +22,9 @@ function Service() {
                             business_solution_description
                             features_title
                             features_description
+                            feature_icon {
+                                source_url
+                            }
                         }
                     
                     }   
@@ -77,7 +80,7 @@ function Service() {
                     </Col>
                     <Col lg={7} md={8} className="service-block-content">
                         <Row>
-                            <Col sm={6} className="service-block1">
+                            {/*<Col sm={6} className="service-block1">
                                 {Servicedata.map((data, i) => (
                                     <div className={`service-${i} service-content`} key={data.id}>
                                         <div className="service-icon">
@@ -89,25 +92,33 @@ function Service() {
                                         </div>
                                     </div>
                                 ))}
-                            </Col>
-                            <Col sm={6} className="service-block1">
-                                {
+                                </Col>*/}
+                            
+                            {
+                                
                                     data.allWordpressWpLandingpages.edges.map((edge, index) => {
                                         if (edge.node.acf.features_title) {
                                             return (
-                                                <div className={`service-${index} service-content`} key={index}>
-                                                    <div className="service-content-dec">
-                                                        <Title Class="service-title" Name={edge.node.acf.features_title} />
-                                                        <Description Class="service-dec-content" Name={edge.node.acf.features_description} />
-                                                        
+                                                <Col sm={6} className="service-block1">
+                                                    <div className={`service-${index} service-content`} key={index}>
+                                                        <div className="service-icon">
+                                                            <img src={edge.node.acf.feature_icon.source_url}/>
+                                                        </div>
+                                                        <div className="service-content-dec">
+                                                            <Title Class="service-title" Name={edge.node.acf.features_title} />
+                                                            <Description Class="service-dec-content" Name={edge.node.acf.features_description} />
+                                                            
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </Col>
                                             )
                                         }
                                         
                                     })
-                                }
-                            </Col>
+                                    
+                                
+                            }
+                            
                         </Row>
                     </Col>
                 </Row>
