@@ -50,7 +50,7 @@ function Navbar() {
                         </Col>
                         <Col sm={6} className="right-block">
                             <div className="search-menu-account-wrapper">
-                                <div className="menu-right-1">
+                                {/*<div className="menu-right-1">
                                     <div className="account-wrapper">
                                         <div className="account-icon" onClick={loginClick}>
                                             <PreviewIcon icon={user} />
@@ -85,7 +85,7 @@ function Navbar() {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+    </div>*/}
                                 <Menu />
                             </div>
                         </Col>
