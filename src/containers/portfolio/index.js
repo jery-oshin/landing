@@ -20,7 +20,7 @@ function Portfolio() {
                             portfolio_project_name
                             portfolio_project_description
                             portfolio_project_image{
-                                url
+                                source_url
                             }
                         }
                     }   
@@ -66,7 +66,7 @@ function Portfolio() {
                                 <Col lg={4} sm={6} key={edge.node.id} className={`portfolio-${i}`}>
                                     <div className="portfolio-content">
                                         <div className="portfolio-first-block">
-                                            <img src={edge.node.acf.portfolio_project_image.url} alt="" title="" />
+                                            <img src={edge.node.acf.portfolio_project_image.source_url} alt="" title="" />
                                             <div className="portfolio-hover">
                                                 <Title
                                                     Class="portfolio-hover-title"

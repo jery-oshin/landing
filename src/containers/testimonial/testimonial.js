@@ -59,7 +59,7 @@ function CarouselSlider() {
                                 />
                                 <div className="testimonial-images">
                                     <Image Path={data.img} />
-                                </div>
+                                </div> 
 
                             </div>
                         </div>
