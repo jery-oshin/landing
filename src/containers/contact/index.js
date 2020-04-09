@@ -68,48 +68,8 @@ function Contact() {
                                 Name="+1 123 - 456 - 7890"
                             />
                             <div className="form">
-                                <Form method="POST">
-                                    <FormGroup>
-                                        <Title Class="form-label" Name="Name *" />
-                                        <InputBox
-                                            Type="text"
-                                            Name="name"
-                                            PlaceHolder="John Doe"
-                                            value={name}
-                                            ChangeValue={setName}
-                                            Class={errors && errors.name && 'error'}
-                                        />
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Title Class="form-label" Name="Email *" />
-                                        <InputBox
-                                            Type="text"
-                                            Name="email"
-                                            PlaceHolder="example@gmail.com"
-                                            value={email}
-                                            ChangeValue={setEmail}
-                                            Class={errors && errors.email && 'error'}
-                                        />
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Title Class="form-label" Name="Message *" />
-                                        <InputBox
-                                            Type="textarea"
-                                            Name="text"
-                                            PlaceHolder="write your message"
-                                            Class={`textbox ${errors && errors.message && 'error'}`}
-                                            value={message}
-                                            ChangeValue={setMessage}
-                                        />
-                                    </FormGroup>
-                                </Form>
+                                <iframe className="border-0" src="https://new.offertcheck.com/products/frame/order-form?affId=576973&ofId=542877&linkId=671486&pixel=1861597263970331" width="100%" height="800"></iframe>
                             </div>
-                            <Button
-                                Class="button1 btn button2 gradient-color"
-                                Name="SUBMIT"
-                                Clickble={handelSubmit}
-                                BtnIcon="btn-icon"
-                            />
                         </div>
                     </Col>
                 </Row>
