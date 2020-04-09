@@ -3,8 +3,32 @@ import { Container, Row, Col } from 'reactstrap';
 import { Subtitle, Description, Title, Titlespan2 } from '../../components/title/index';
 import PortfolioData from '../../data/portfolio/index';
 import './portfolio.scss';
+import { useStaticQuery, graphql } from 'gatsby';
 
 function Portfolio() {
+
+    const data = useStaticQuery(graphql`
+        query {
+            allWordpressWpLandingpages{
+                edges{
+                    node{
+                        id
+                        acf{
+                            portfolio_title
+                            portfolio_subtitle
+                            portfolio_description
+                            portfolio_project_name
+                            portfolio_project_description
+                            portfolio_project_image{
+                                url
+                            }
+                        }
+                    }   
+                }
+            }
+        }
+    `)
+
 
     return (
         <section className="portfolio-wrapper" id="portfolio">
@@ -12,38 +36,54 @@ function Portfolio() {
                 <div className="main-title-wrapper">
                     <Subtitle
                         Class="site-subtitle"
-                        Name="Portfolio"
+                        Name={data.allWordpressWpLandingpages.edges.map(edge => {
+                            if (edge.node.acf.portfolio_subtitle) {
+                                return edge.node.acf.portfolio_subtitle
+                            }
+                        })}
                     />
                     <Titlespan2
                         Class="sitemain-subtitle"
-                        Name="See Our"
-                        Label="Case Studies"
+                        Name={data.allWordpressWpLandingpages.edges.map(edge => {
+                            if (edge.node.acf.portfolio_title) {
+                                return edge.node.acf.portfolio_title
+                            }
+                        })}
                     />
                     <Description
                         Class="site-dec"
-                        Name="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown"
+                        Name={data.allWordpressWpLandingpages.edges.map(edge => {
+                            if (edge.node.acf.portfolio_description) {
+                                return edge.node.acf.portfolio_description
+                            }
+                        })}
                     />
                 </div>
                 <Row>
-                    {PortfolioData.map((data, i) => (
-                        <Col lg={4} sm={6} key={data.id} className={`portfolio-${i}`}>
-                            <div className="portfolio-content">
-                                <div className="portfolio-first-block">
-                                    <img src={data.img} alt="" title="" />
-                                    <div className="portfolio-hover">
-                                        <Title
-                                            Class="portfolio-hover-title"
-                                            Name={data.subtitle}
-                                        />
-                                        <Description
-                                            Class="portfolio-hover-dec"
-                                            Name={data.subcontent}
-                                        />
+                    {data.allWordpressWpLandingpages.edges.map((edge, i) => {
+                        if(edge.node.acf.portfolio_project_name){
+                            return (
+                                <Col lg={4} sm={6} key={edge.node.id} className={`portfolio-${i}`}>
+                                    <div className="portfolio-content">
+                                        <div className="portfolio-first-block">
+                                            <img src={edge.node.acf.portfolio_project_image.url} alt="" title="" />
+                                            <div className="portfolio-hover">
+                                                <Title
+                                                    Class="portfolio-hover-title"
+                                                    Name={edge.node.acf.portfolio_project_name}
+                                                />
+                                                <Description
+                                                    Class="portfolio-hover-dec"
+                                                    Name={edge.node.acf.portfolio_project_description}
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </Col>
-                    ))}
+                                </Col>
+                            )
+                        }
+                        
+                    })}
                 </Row>
             </Container>
         </section>
